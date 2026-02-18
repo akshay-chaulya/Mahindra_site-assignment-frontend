@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { apartmentImg, playIcon } from "../assets/assets";
+import { apartmentImg, footerVideo, playIcon } from "../assets/assets";
 
 const Footer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -29,7 +29,7 @@ const Footer = () => {
           {isPlaying && (
             <video
               ref={videoRef}
-              src="/your-video.mp4" // 👈 replace with your video path
+              src={footerVideo} 
               className="absolute inset-0 w-full h-full object-cover z-20"
               controls
               onPause={() => setIsPlaying(false)}

@@ -31,6 +31,7 @@ import playIcon from "./play_icon.png"
 import mapImg from "./map_img.png"
 import bathroomImg from "./bathroom_img.png"
 import formBgImg from "./form_bg.png"
+import footerVideo from "./footer_video.mp4"
 
 export {
   logo1,
@@ -66,4 +67,5 @@ export {
   mapImg,
   bathroomImg,
   formBgImg,
+  footerVideo,
 };
