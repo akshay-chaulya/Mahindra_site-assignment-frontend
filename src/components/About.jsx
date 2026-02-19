@@ -38,7 +38,6 @@ const About = () => {
 
   return (
     <section
-      ref={ref}
       className="relative w-full bg-linear-to-br from-pink-50 via-pink-100/40 to-pink-50 overflow-hidden max-w-7xl mx-auto
         px-4 sm:px-12 py-28 xl:p-28 "
     >
