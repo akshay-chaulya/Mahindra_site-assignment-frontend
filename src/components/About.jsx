@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { balconyImg, gardenImg2, treeImg } from "../assets/assets";
 import BulletPointFlower from "./BulletPointFlower";
 import Title from "./Title";
-import { useInView, motion, useAnimationControls } from "framer-motion";
 
 const features = [
   {
@@ -33,22 +33,8 @@ const features = [
 
 const About = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const controls = useAnimationControls();
+  const isInView = useInView(ref);
 
-  useEffect(() => {
-    if (isInView) {
-      controls.start({
-        right: "auto",
-        top: "auto",
-        left: "5rem",
-        bottom: "16.66%",
-        rotate: 0,
-        skewX: 0,
-        skewY: 0,
-      });
-    }
-  }, [isInView, controls]);
 
   return (
     <section
@@ -163,7 +149,7 @@ const About = () => {
       </div>
 
       {/* ================= FEATURES SECTION ================= */}
-      <div className="relative max-w-7xl mx-auto mt-28">
+      <div ref={ref} className="relative max-w-7xl mx-auto mt-28">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 items-center">
           {/* Left Image */}
           <div className="hidden lg:block">
@@ -197,62 +183,46 @@ const About = () => {
         </div>
       </div>
 
-      {/* for animation  */}
-      {/* <div className="absolute right-28 top-25 ">
-        <img
-          style={{
-            transform: "skewY(-2deg) skewX(4deg) rotate(-5deg)",
-            transformOrigin: "bottom left",
-          }}
-          src={balconyImg}
-          className="h-125 w-82 object-cover rounded-2xl rotate"
-          alt=""
-        />
-      </div> */}
-
-      {/* <div className="absolute bottom-1/6 left-20 ">
-        <img
-          src={balconyImg}
-          className="h-150 w-82 object-cover rounded-2xl rotate"
-          alt=""
-        />
-      </div> */}
-
       <motion.div
         initial={{
-          position: "absolute",
-          right: "7rem",
-          top: "6.25rem",
-          left: "auto",
-          bottom: "auto",
-          rotate: -5,
+          height: "500px",
+          // right: "8rem",
+          // top: "6rem",
+          // right: "1rem",
+          // top: "7rem",
+          // left: "auto",
+          // bottom: "auto",
+          rotate: -3,
           skewX: 4,
           skewY: -2,
+          transformOrigin: "bottom left",
         }}
-        animate={controls}
+        animate={
+          isInView
+            ? {
+                height: "600px",
+                right: "auto",
+                top: "auto",
+                left: "2rem",
+                bottom: "20rem",
+                rotate: [-5, 355, 360],
+                skewX: 0,
+                skewY: 0,
+                transformOrigin: "normal",
+              }
+            : {}
+        }
         transition={{
           duration: 6,
-          // ease: [0.76, 0, 0.24, 1], // custom cubic-bezier for cinematic feel
-          ease: "easeInOut"
+          times: [0, 0.85, 1], // spin most of the time, settle at end
+          ease: ["linear", "easeOut"],
         }}
-        style={{ position: "absolute" }}
+        className="hidden lg:block absolute w-75 xl:w-[320px]
+    xl:right-28 xl:top-22 md:right-10 md:top-28"
       >
         <motion.img
-          initial={{ height: "500px" }}
-          animate={isInView ? { height: "600px" } : { height: "500px" }}
-          transition={{
-            duration: 6,
-            // ease: [0.76, 0, 0.24, 1],
-            ease: "easeInOut"
-          }}
-          style={{
-            width: "320px",
-            objectFit: "cover",
-            borderRadius: "1rem",
-            display: "block",
-          }}
           src={balconyImg}
-          className="w-[320px] object-cover rounded-2xl"
+          className="w-full h-full object-cover rounded-2xl"
           alt=""
         />
       </motion.div>

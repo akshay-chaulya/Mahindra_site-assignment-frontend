@@ -31,7 +31,10 @@ import playIcon from "./play_icon.png"
 import mapImg from "./map_img.png"
 import bathroomImg from "./bathroom_img.png"
 import formBgImg from "./form_bg.png"
+<<<<<<< HEAD
 import footerVideo from "./footer_video.mp4"
+=======
+>>>>>>> feature-one
 
 export {
   logo1,
@@ -67,5 +70,8 @@ export {
   mapImg,
   bathroomImg,
   formBgImg,
+<<<<<<< HEAD
   footerVideo,
+=======
+>>>>>>> feature-one
 };
