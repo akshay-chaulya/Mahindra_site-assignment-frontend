@@ -33,26 +33,25 @@ const features = [
 
 const About = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref);
   const controls = useAnimationControls();
 
   useEffect(() => {
-    if (isInView) {
-      controls.start({
-        right: "auto",
-        top: "auto",
-        left: "5rem",
-        bottom: "16.66%",
-        rotate: 0,
-        skewX: 0,
-        skewY: 0,
-      });
-    }
+    // if (isInView) {
+    // controls.start({
+    //   right: "auto",
+    //   top: "auto",
+    //   left: "5rem",
+    //   bottom: "16.66%",
+    //   rotate: 0,
+    //   skewX: 0,
+    //   skewY: 0,
+    // });
+    // }
   }, [isInView, controls]);
 
   return (
     <section
-      ref={ref}
       className="relative w-full bg-linear-to-br from-pink-50 via-pink-100/40 to-pink-50 overflow-hidden max-w-7xl mx-auto
         px-4 sm:px-12 py-28 xl:p-28 "
     >
@@ -163,7 +162,7 @@ const About = () => {
       </div>
 
       {/* ================= FEATURES SECTION ================= */}
-      <div className="relative max-w-7xl mx-auto mt-28">
+      <div ref={ref} className="relative max-w-7xl mx-auto mt-28">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 items-center">
           {/* Left Image */}
           <div className="hidden lg:block">
@@ -220,39 +219,44 @@ const About = () => {
 
       <motion.div
         initial={{
-          position: "absolute",
-          right: "7rem",
-          top: "6.25rem",
-          left: "auto",
-          bottom: "auto",
-          rotate: -5,
+          height: "500px",
+          // right: "8rem",
+          // top: "6rem",
+          // right: "1rem",
+          // top: "7rem",
+          // left: "auto",
+          // bottom: "auto",
+          rotate: -3,
           skewX: 4,
           skewY: -2,
+          transformOrigin: "bottom left",
         }}
-        animate={controls}
+        animate={
+          isInView
+            ? {
+                height: "600px",
+                right: "auto",
+                top: "auto",
+                left: "2rem",
+                bottom: "20rem",
+                rotate: [-5, 355, 360],
+                skewX: 0,
+                skewY: 0,
+                transformOrigin: "normal",
+              }
+            : {}
+        }
         transition={{
           duration: 6,
-          // ease: [0.76, 0, 0.24, 1], // custom cubic-bezier for cinematic feel
-          ease: "easeInOut"
+          times: [0, 0.85, 1], // spin most of the time, settle at end
+          ease: ["linear", "easeOut"],
         }}
-        style={{ position: "absolute" }}
+        className="hidden lg:block absolute w-75 xl:w-[320px]
+    xl:right-28 xl:top-22 md:right-10 md:top-28"
       >
         <motion.img
-          initial={{ height: "500px" }}
-          animate={isInView ? { height: "600px" } : { height: "500px" }}
-          transition={{
-            duration: 6,
-            // ease: [0.76, 0, 0.24, 1],
-            ease: "easeInOut"
-          }}
-          style={{
-            width: "320px",
-            objectFit: "cover",
-            borderRadius: "1rem",
-            display: "block",
-          }}
           src={balconyImg}
-          className="w-[320px] object-cover rounded-2xl"
+          className="w-full h-full object-cover rounded-2xl"
           alt=""
         />
       </motion.div>
